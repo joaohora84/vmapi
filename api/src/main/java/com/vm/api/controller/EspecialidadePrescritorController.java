@@ -22,33 +22,31 @@ public class EspecialidadePrescritorController {
 	@Autowired
 	private EspecialidadePrescritorRepository especialidadePrescritorRepository;
 
+	@GetMapping(value = "/", produces = "application/json")
+	public ResponseEntity<List<EspecialidadePrescritor>> buscarTodos() {
+
+		List<EspecialidadePrescritor> list = (List<EspecialidadePrescritor>) especialidadePrescritorRepository
+				.findAll();
+
+		return new ResponseEntity<List<EspecialidadePrescritor>>(list, HttpStatus.OK);
+
+	}
+
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public ResponseEntity<EspecialidadePrescritor> buscarPorId(@PathVariable(value = "id") Long id) {
-		
+
 		Optional<EspecialidadePrescritor> especialidadePrescritor = especialidadePrescritorRepository.findById(id);
-		
+
 		return new ResponseEntity<EspecialidadePrescritor>(especialidadePrescritor.get(), HttpStatus.OK);
-		
+
 	}
-	
-	@GetMapping(value = "/", produces = "application/json")
-	public ResponseEntity<List<EspecialidadePrescritor>> buscarTodos(){
-		
-		List<EspecialidadePrescritor> list = (List<EspecialidadePrescritor>) especialidadePrescritorRepository.findAll();
-		
-		return new ResponseEntity<List<EspecialidadePrescritor>>(list, HttpStatus.OK);
-		
-	}
-	
+
 	@GetMapping(value = "/pornome", produces = "application/json")
-	public ResponseEntity<List<EspecialidadePrescritor>> buscarPorNome(@RequestParam("nome") String nome){
-		
+	public ResponseEntity<List<EspecialidadePrescritor>> buscarPorNome(@RequestParam("nome") String nome) {
+
 		List<EspecialidadePrescritor> list = especialidadePrescritorRepository.getEspecialidadePorNome(nome);
-		
+
 		return new ResponseEntity<List<EspecialidadePrescritor>>(list, HttpStatus.OK);
 	}
-	
-	
-	
 
 }

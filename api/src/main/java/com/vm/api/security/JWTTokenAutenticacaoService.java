@@ -25,9 +25,9 @@ public class JWTTokenAutenticacaoService {
 
 	private static final long EXPIRATION_TIME = 172800000;
 
-	private static final String SECRET = "SenhaExtremamenteSecreta";
+	private static final String SECRET = "895654456hj";
 
-	private static final String TOKEN_PREFIX = "Bearer";
+	//private static final String TOKEN_PREFIX = "";
 
 	private static final String HEADER_STRING = "Authorization";
 
@@ -37,33 +37,32 @@ public class JWTTokenAutenticacaoService {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
 
-		String token = TOKEN_PREFIX + " " + JWT;
+		String token = JWT;
 
 		response.addHeader(HEADER_STRING, token);
 
 		liberacaoCors(response);
 
-		response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
+		response.getWriter().write("{\"token\": \"" + token + "\"}");
 	}
 
 	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
 		String token = request.getHeader(HEADER_STRING);
+		
+		System.out.println(token);
 
 		if (token != null) {
 
-			String user = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
-					.getSubject();
+			String user = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getSubject();
 
 			if (user != null) {
 
-				Usuario usuario = ApplicationContextLoad.getApplicationContext().getBean(UsuarioRepository.class)
-						.findUserByLogin(user);
+				Usuario usuario = ApplicationContextLoad.getApplicationContext().getBean(UsuarioRepository.class).findUserByLogin(user);
 
 				if (usuario != null) {
 
-					return new UsernamePasswordAuthenticationToken(usuario.getLogin(), usuario.getSenha(),
-							usuario.getAuthorities());
+					return new UsernamePasswordAuthenticationToken(usuario.getLogin(), usuario.getSenha(), usuario.getAuthorities());
 
 				}
 
@@ -98,5 +97,6 @@ public class JWTTokenAutenticacaoService {
 		}
 
 	}
+
 
 }
