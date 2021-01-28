@@ -81,7 +81,6 @@ public class Ativo implements Serializable {
 	@ForeignKey(name = "unidade_fk")
 	private UnidadeMedida unidade;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "ativo", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<SugestaoFormula> sugestao_formulas;
 
