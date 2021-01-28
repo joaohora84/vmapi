@@ -26,6 +26,7 @@ public class SugestaoFormula implements Serializable {
 	@SequenceGenerator(name = "sugestao_formula_sequence", sequenceName = "sugestao_form_seq")
 	private Long idsugestao_formula;
 
+	@JsonIgnore
 	@ManyToOne
 	@ForeignKey(name = "formula_fk")
 	private Formula formula;

@@ -62,8 +62,10 @@ public class AtivoController {
 			@RequestParam("especialidade") Long especialidade) {
 
 		List<Ativo> ativos = null;
+		
+		System.out.println("ESPECIALIDADE: " + especialidade);
 
-		if (especialidade != null) {
+		if ((especialidade != null) || (!especialidade.equals("")) ) {
 
 			ativos = ativoRepository.getAtivoByEspecialidadeNome(especialidade, nomepesquisa);
 
