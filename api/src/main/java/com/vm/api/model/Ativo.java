@@ -73,10 +73,9 @@ public class Ativo implements Serializable {
 	private String nomefichatecnica;
 
 	private String observacao;
-
-	@OneToOne
-	@ForeignKey(name = "especialidade_fk")
-	private EspecialidadePrescritor especialidade;
+	
+	@OneToMany
+	private List<EspecialidadePrescritor> especialidades;
 
 	@OneToOne
 	@ForeignKey(name = "unidade_fk")
@@ -94,10 +93,12 @@ public class Ativo implements Serializable {
 	@OneToMany(mappedBy = "ativo", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<AtivoFormula> ativo_formula;
 
+	@JsonIgnore
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date data_cadastro;
 
+	@JsonIgnore
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date data_alteracao;
@@ -230,12 +231,12 @@ public class Ativo implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public EspecialidadePrescritor getEspecialidade() {
-		return especialidade;
+	public List<EspecialidadePrescritor> getEspecialidades() {
+		return especialidades;
 	}
 
-	public void setEspecialidade(EspecialidadePrescritor especialidade) {
-		this.especialidade = especialidade;
+	public void setEspecialidades(List<EspecialidadePrescritor> especialidades) {
+		this.especialidades = especialidades;
 	}
 
 	public List<SugestaoFormula> getSugestao_formulas() {
@@ -310,7 +311,7 @@ public class Ativo implements Serializable {
 				+ ", indicacao=" + indicacao + ", beneficios=" + beneficios + ", mecanismo_acao=" + mecanismo_acao
 				+ ", estudos=" + estudos + ", contra_indicacao=" + contra_indicacao + ", fichatecnica="
 				+ Arrays.toString(fichatecnica) + ", tipofichatecnica=" + tipofichatecnica + ", nomefichatecnica="
-				+ nomefichatecnica + ", observacao=" + observacao + ", especialidade=" + especialidade + ", unidade="
+				+ nomefichatecnica + ", observacao=" + observacao + ", especialidades=" + especialidades + ", unidade="
 				+ unidade + ", sugestao_formulas=" + sugestao_formulas + ", ativo_visita=" + ativo_visita
 				+ ", ativo_formula=" + ativo_formula + ", data_cadastro=" + data_cadastro + ", data_alteracao="
 				+ data_alteracao + "]";

@@ -43,14 +43,17 @@ public class Formula implements Serializable {
 
 	private double valor;
 
+	@JsonIgnore
 	@OneToOne
 	@ForeignKey(name = "especialidade_fk")
 	private EspecialidadePrescritor especialidade;
 
+	
 	@ManyToOne
 	@ForeignKey(name = "forma_farmaceutica_fk")
 	private FormaFamaceutica forma_farmaceutica;
 
+	@JsonIgnore
 	@Column(columnDefinition = "text")
 	private String foto;
 

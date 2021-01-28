@@ -29,10 +29,10 @@ public class SugestaoFormulaController {
 
 	}
 	
-	@GetMapping(value = "/sugestaoformulaporativo", produces = "application/json")
-	public ResponseEntity<List<SugestaoFormula>> sugestaoFormulaPorAtivo(@RequestParam("ativoid") Long ativoid) {
+	@GetMapping(value = "/idativo", produces = "application/json")
+	public ResponseEntity<List<SugestaoFormula>> sugestaoFormulaPorAtivo(@RequestParam("idativo") Long idativo) {
 
-		List<SugestaoFormula> list = sugestaoFormulaRespository.getSugestaoFormula(ativoid);
+		List<SugestaoFormula> list = sugestaoFormulaRespository.getSugestaoFormula(idativo);
 
 		return new ResponseEntity<List<SugestaoFormula>>(list, HttpStatus.OK);
 

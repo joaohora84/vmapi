@@ -19,19 +19,23 @@ public interface AtivoRepository extends JpaRepository<Ativo, Long> {
 	
 	int limit = 2;
 	
-	@Query("select a from Ativo a where a.especialidade.id= ?1")
-	List<Ativo> getAtivoPorEspecialide(Long especialidade);
-	
 	@Query("select a from Ativo a where lower(a.nome) like lower(concat(?1, '%'))")
 	List<Ativo> getAtivoByName(String nome);
 	
 	@Query(value="select * from Ativo order by idativo desc limit 5", nativeQuery = true)
 	List<Ativo> getAtivoNovo();
 	
-	@Query("select a from Ativo a where a.especialidade.id= ?1")
+	@Query(value = "select * from ativo as a\n"
+			+ "	left join ativo_especialidades as e\n"
+			+ "	on a.idativo = e.ativo_idativo\n" + ""
+			+ "	where e.especialidades_idespecialidade = :idespecialidade", nativeQuery = true)
 	List<Ativo> getAtivoByEspecialidade(Long idespecialidade);
 
-	@Query("select a from Ativo a where a.especialidade.id= ?1 and lower(a.nome) like lower(concat(?2, '%'))")
+	@Query(value = "select * from ativo as a\n" 
+	        + "	left join ativo_especialidades as e\n"
+			+ "	on a.idativo = e.ativo_idativo\n"
+	        + "	where e.especialidades_idespecialidade = :idespecialidade "
+			+ " and lower(a.nome) like lower(:nome || '%')", nativeQuery = true)
 	List<Ativo> getAtivoByEspecialidadeNome(Long idespecialidade, String nome);
 
 	default Page<Ativo> findAtivoByNamePage(String nome, Pageable pageable) {
