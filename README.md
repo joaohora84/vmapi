@@ -9,8 +9,6 @@ ativo/novos
 
 ativo/pesquisa?nomepesquisa=''&especialidade=''
 
-
-
 especialidadeprescritor/
 
 especialidadeprescritor/id
@@ -19,6 +17,6 @@ especialidadeprescritor/pornome?nome=''
 
 sugestaoformula/
 
-sugestaoformula/sugestaoformulaporativo?ativoid=''     **corrigir na próxima atualização para: sugestaoformula/porativo?ativoid=''
+sugestaoformula/idativo?idativo=''
 
 
