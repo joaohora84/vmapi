@@ -24,9 +24,9 @@ public class EspecialidadePrescritorController {
 
 	@GetMapping(value = "/", produces = "application/json")
 	public ResponseEntity<List<EspecialidadePrescritor>> buscarTodos() {
-		
-		List<EspecialidadePrescritor> list = (List<EspecialidadePrescritor>) especialidadePrescritorRepository.findAll();
-				
+
+		List<EspecialidadePrescritor> list = (List<EspecialidadePrescritor>) especialidadePrescritorRepository
+				.findAllByOrderBy();
 
 		return new ResponseEntity<List<EspecialidadePrescritor>>(list, HttpStatus.OK);
 
