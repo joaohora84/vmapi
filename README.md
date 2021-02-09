@@ -7,6 +7,8 @@ ativo/
 
 ativo/novos
 
+ativo/especialidade?id=50
+
 ativo/pesquisa?nomepesquisa=''&especialidade=''
 
 especialidadeprescritor/
