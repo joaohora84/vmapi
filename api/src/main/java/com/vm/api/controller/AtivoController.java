@@ -29,19 +29,18 @@ public class AtivoController {
 		List<Ativo> ativos = null;
 
 		ativos = (List<Ativo>) ativoRepository.findAll();
-		
-		
+
 		return new ResponseEntity<List<Ativo>>(ativos, HttpStatus.OK);
 
 	}
-	
+
 	@GetMapping(value = "/{id}", produces = "application/json")
-	public ResponseEntity<Ativo> ativoPorId(@PathVariable("id") Long id){
-		
+	public ResponseEntity<Ativo> ativoPorId(@PathVariable("id") Long id) {
+
 		Optional<Ativo> ativo = ativoRepository.findById(id);
-		
+
 		return new ResponseEntity<Ativo>(ativo.get(), HttpStatus.OK);
-		
+
 	}
 
 	@GetMapping(value = "/novos", produces = "application/json")
@@ -54,18 +53,16 @@ public class AtivoController {
 		return new ResponseEntity<List<Ativo>>(ativos, HttpStatus.OK);
 
 	}
-	
-	
 
 	@GetMapping(value = "/pesquisa", produces = "application/json")
 	public ResponseEntity<List<Ativo>> ativosPorNomeEspecialidade(@RequestParam("nomepesquisa") String nomepesquisa,
 			@RequestParam("especialidade") Long especialidade) {
 
 		List<Ativo> ativos = null;
-		
+
 		System.out.println("ESPECIALIDADE: " + especialidade);
 
-		if ((especialidade != null) || (!especialidade.equals("")) ) {
+		if ((especialidade != null) || (!especialidade.equals(""))) {
 
 			ativos = ativoRepository.getAtivoByEspecialidadeNome(especialidade, nomepesquisa);
 
@@ -77,29 +74,33 @@ public class AtivoController {
 
 		return new ResponseEntity<List<Ativo>>(ativos, HttpStatus.OK);
 	}
-	
-		
-	
-	@GetMapping(value="**/downloadfile/{idativ}", produces = "application/json")
+
+	@GetMapping(value = "/especialidade", produces = "application/json")
+	public ResponseEntity<List<Ativo>> ativosPorEspecialidade(@RequestParam("id") Long id) {
+
+		List<Ativo> ativos = null;
+
+		ativos = ativoRepository.getAtivoByEspecialidade(id);
+
+		return new ResponseEntity<List<Ativo>>(ativos, HttpStatus.OK);
+
+	}
+
+	@GetMapping(value = "**/downloadfile/{idativ}", produces = "application/json")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable("idativ") Long idativ) throws IOException {
 
 		Ativo ativo = ativoRepository.findById(idativ).get();
-		
+
 		if (ativo.getFichatecnica() != null) {
-			
+
 			return new ResponseEntity<byte[]>(ativo.getFichatecnica(), HttpStatus.OK);
 
 		} else {
-			
+
 			return null;
-			
+
 		}
-		
-		
-		
-		
 
 	}
-	
-	
+
 }
