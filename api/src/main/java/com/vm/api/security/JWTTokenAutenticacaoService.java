@@ -50,7 +50,7 @@ public class JWTTokenAutenticacaoService {
 
 		String token = request.getHeader(HEADER_STRING);
 		
-		System.out.println(token);
+		//System.out.println(token);
 
 		if (token != null) {
 
